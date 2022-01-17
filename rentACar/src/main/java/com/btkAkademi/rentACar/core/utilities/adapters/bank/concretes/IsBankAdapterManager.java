@@ -2,7 +2,7 @@ package com.btkAkademi.rentACar.core.utilities.adapters.bank.concretes;
 
 import org.springframework.stereotype.Service;
 
-import com.btkAkademi.rentACar.bussienes.constants.Messages;
+import com.btkAkademi.rentACar.bussiness.constants.Messages;
 import com.btkAkademi.rentACar.core.utilities.adapters.bank.abstracts.BankAdapterService;
 import com.btkAkademi.rentACar.core.utilities.externalServices.bank.IsBank;
 import com.btkAkademi.rentACar.core.utilities.results.ErrorResult;

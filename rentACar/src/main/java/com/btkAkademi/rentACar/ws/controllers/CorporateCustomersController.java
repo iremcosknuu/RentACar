@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.btkAkademi.rentACar.bussienes.abstracts.CorporateCustomerService;
-import com.btkAkademi.rentACar.bussienes.dtos.CorporateCustomerListDto;
-import com.btkAkademi.rentACar.bussienes.requests.rentalRequests.UpdateRentalRequest;
-import com.btkAkademi.rentACar.bussienes.requests.userRequests.CorporateCustomerRequests.CreateCorporateCustomerRequest;
-import com.btkAkademi.rentACar.bussienes.requests.userRequests.CorporateCustomerRequests.UpdateCorporateCustomerRequest;
+import com.btkAkademi.rentACar.bussiness.abstracts.CorporateCustomerService;
+import com.btkAkademi.rentACar.bussiness.dtos.CorporateCustomerListDto;
+import com.btkAkademi.rentACar.bussiness.requests.rentalRequests.UpdateRentalRequest;
+import com.btkAkademi.rentACar.bussiness.requests.userRequests.CorporateCustomerRequests.CreateCorporateCustomerRequest;
+import com.btkAkademi.rentACar.bussiness.requests.userRequests.CorporateCustomerRequests.UpdateCorporateCustomerRequest;
 import com.btkAkademi.rentACar.core.utilities.results.DataResult;
 import com.btkAkademi.rentACar.core.utilities.results.Result;
 

@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.btkAkademi.rentACar.bussienes.abstracts.AdditionalServiceService;
-import com.btkAkademi.rentACar.bussienes.dtos.AdditionalServiceListDto;
-import com.btkAkademi.rentACar.bussienes.requests.additionalServiceRequests.CreateAdditionalServiceRequest;
-import com.btkAkademi.rentACar.bussienes.requests.additionalServiceRequests.UpdateAddionalServiceRequest;
+import com.btkAkademi.rentACar.bussiness.abstracts.AdditionalServiceService;
+import com.btkAkademi.rentACar.bussiness.dtos.AdditionalServiceListDto;
+import com.btkAkademi.rentACar.bussiness.requests.additionalServiceRequests.CreateAdditionalServiceRequest;
+import com.btkAkademi.rentACar.bussiness.requests.additionalServiceRequests.UpdateAddionalServiceRequest;
 import com.btkAkademi.rentACar.core.utilities.results.DataResult;
 import com.btkAkademi.rentACar.core.utilities.results.Result;
 

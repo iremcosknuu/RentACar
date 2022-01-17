@@ -1,0 +1,18 @@
+package com.btkAkademi.rentACar.bussiness.abstracts;
+
+import java.util.List;
+
+import com.btkAkademi.rentACar.bussiness.dtos.CorporateCustomerListDto;
+import com.btkAkademi.rentACar.bussiness.requests.userRequests.CorporateCustomerRequests.CreateCorporateCustomerRequest;
+import com.btkAkademi.rentACar.bussiness.requests.userRequests.CorporateCustomerRequests.UpdateCorporateCustomerRequest;
+import com.btkAkademi.rentACar.core.utilities.results.DataResult;
+import com.btkAkademi.rentACar.core.utilities.results.Result;
+
+public interface CorporateCustomerService {
+
+	DataResult<List<CorporateCustomerListDto>> getAll();
+	
+	Result add(CreateCorporateCustomerRequest createCorporateCustomerRequest);
+	Result update(UpdateCorporateCustomerRequest updateCorporateCustomerRequest);
+	Result delete(int id);
+}

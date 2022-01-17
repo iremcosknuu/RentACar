@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.btkAkademi.rentACar.bussienes.abstracts.BrandService;
-import com.btkAkademi.rentACar.bussienes.dtos.BrandListDto;
-import com.btkAkademi.rentACar.bussienes.requests.brandRequests.CreateBrandRequest;
-import com.btkAkademi.rentACar.bussienes.requests.brandRequests.UpdateBrandRequest;
+import com.btkAkademi.rentACar.bussiness.abstracts.BrandService;
+import com.btkAkademi.rentACar.bussiness.dtos.BrandListDto;
+import com.btkAkademi.rentACar.bussiness.requests.brandRequests.CreateBrandRequest;
+import com.btkAkademi.rentACar.bussiness.requests.brandRequests.UpdateBrandRequest;
 import com.btkAkademi.rentACar.core.utilities.results.DataResult;
 import com.btkAkademi.rentACar.core.utilities.results.Result;
 

@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.btkAkademi.rentACar.bussienes.abstracts.CarService;
-import com.btkAkademi.rentACar.bussienes.dtos.CarListDto;
-import com.btkAkademi.rentACar.bussienes.requests.carRequests.CreateCarRequest;
-import com.btkAkademi.rentACar.bussienes.requests.carRequests.UpdateCarRequest;
+import com.btkAkademi.rentACar.bussiness.abstracts.CarService;
+import com.btkAkademi.rentACar.bussiness.dtos.CarListDto;
+import com.btkAkademi.rentACar.bussiness.requests.carRequests.CreateCarRequest;
+import com.btkAkademi.rentACar.bussiness.requests.carRequests.UpdateCarRequest;
 import com.btkAkademi.rentACar.core.utilities.results.DataResult;
 import com.btkAkademi.rentACar.core.utilities.results.Result;
 
