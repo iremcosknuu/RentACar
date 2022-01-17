@@ -14,13 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.btkAkademi.rentACar.bussienes.abstracts.RentalService;
-import com.btkAkademi.rentACar.bussienes.dtos.RentalListDto;
-import com.btkAkademi.rentACar.bussienes.requests.rentalRequests.CreateRentalRequest;
-import com.btkAkademi.rentACar.bussienes.requests.rentalRequests.UpdateRentalRequest;
+import com.btkAkademi.rentACar.bussiness.abstracts.RentalService;
+import com.btkAkademi.rentACar.bussiness.dtos.RentalListDto;
+import com.btkAkademi.rentACar.bussiness.requests.rentalRequests.CreateRentalRequest;
+import com.btkAkademi.rentACar.bussiness.requests.rentalRequests.UpdateRentalRequest;
 import com.btkAkademi.rentACar.core.utilities.results.DataResult;
 import com.btkAkademi.rentACar.core.utilities.results.Result;
-
 
 
 @RestController
