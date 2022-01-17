@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.btkAkademi.rentACar.bussiness.abstracts.CarMaintenanceService;
-import com.btkAkademi.rentACar.bussiness.dtos.CarMaintenanceListDto;
-import com.btkAkademi.rentACar.bussiness.requests.carMaintenanceRequests.CreateCarMaintenanceRequest;
-import com.btkAkademi.rentACar.bussiness.requests.carMaintenanceRequests.UpdateCarMaintenanceRequest;
+import com.btkAkademi.rentACar.business.abstracts.CarMaintenanceService;
+import com.btkAkademi.rentACar.business.dtos.CarMaintenanceListDto;
+import com.btkAkademi.rentACar.business.requests.carMaintenanceRequests.CreateCarMaintenanceRequest;
+import com.btkAkademi.rentACar.business.requests.carMaintenanceRequests.UpdateCarMaintenanceRequest;
 import com.btkAkademi.rentACar.core.utilities.results.DataResult;
 import com.btkAkademi.rentACar.core.utilities.results.Result;
 

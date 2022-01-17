@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.btkAkademi.rentACar.bussiness.abstracts.PaymentService;
-import com.btkAkademi.rentACar.bussiness.dtos.PaymentListDto;
-import com.btkAkademi.rentACar.bussiness.requests.paymentRequests.CreatePaymentRequest;
-import com.btkAkademi.rentACar.bussiness.requests.paymentRequests.UpdatePaymentRequest;
+import com.btkAkademi.rentACar.business.abstracts.PaymentService;
+import com.btkAkademi.rentACar.business.dtos.PaymentListDto;
+import com.btkAkademi.rentACar.business.requests.paymentRequests.CreatePaymentRequest;
+import com.btkAkademi.rentACar.business.requests.paymentRequests.UpdatePaymentRequest;
 import com.btkAkademi.rentACar.core.utilities.results.DataResult;
 import com.btkAkademi.rentACar.core.utilities.results.Result;
 

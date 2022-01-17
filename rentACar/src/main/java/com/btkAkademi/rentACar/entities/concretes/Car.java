@@ -38,6 +38,8 @@ public class Car {
 	private int findexScore;
 	@Column(name="kilometer")
 	private int kilometer;
+	@Column(name="minAge")
+	private int minAge;
 	
 	@ManyToOne
 	@JoinColumn(name = "brand_id")

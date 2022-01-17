@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.btkAkademi.rentACar.bussiness.abstracts.IndividualCustomerService;
-import com.btkAkademi.rentACar.bussiness.dtos.IndividualCustomerListDto;
-import com.btkAkademi.rentACar.bussiness.requests.userRequests.IndividualCustomerRequests.CreateIndividualCustomerRequest;
-import com.btkAkademi.rentACar.bussiness.requests.userRequests.IndividualCustomerRequests.UpdateIndividualCustomerRequest;
+import com.btkAkademi.rentACar.business.abstracts.IndividualCustomerService;
+import com.btkAkademi.rentACar.business.dtos.IndividualCustomerListDto;
+import com.btkAkademi.rentACar.business.requests.userRequests.IndividualCustomerRequests.CreateIndividualCustomerRequest;
+import com.btkAkademi.rentACar.business.requests.userRequests.IndividualCustomerRequests.UpdateIndividualCustomerRequest;
 import com.btkAkademi.rentACar.core.utilities.results.DataResult;
 import com.btkAkademi.rentACar.core.utilities.results.Result;
 
@@ -34,21 +34,26 @@ public class IndividualCustomersController {
 	
 	@GetMapping("getall")
 	public DataResult<List<IndividualCustomerListDto>> add() {
-		return individualCustomerService.getAll();
+		return this.individualCustomerService.getAll();
+	}
+	
+	@GetMapping("findById/{id}")
+	public DataResult<IndividualCustomerListDto> findById(@PathVariable int id){
+		return this.individualCustomerService.findById(id);
 	}
 	
 	@PostMapping("add")
 	public Result add(@RequestBody @Valid CreateIndividualCustomerRequest createIndividualCustomerRequest) {
-		return individualCustomerService.add(createIndividualCustomerRequest);
+		return this.individualCustomerService.add(createIndividualCustomerRequest);
 	}
 	
 	@PutMapping("update")
 	public Result add(@RequestBody @Valid UpdateIndividualCustomerRequest updateIndividualCustomerRequest) {
-		return individualCustomerService.update(updateIndividualCustomerRequest);
+		return this.individualCustomerService.update(updateIndividualCustomerRequest);
 	}
 	
 	@DeleteMapping("delete/{id}")
 	public Result add(@PathVariable int id) {
-		return individualCustomerService.delete(id);
+		return this.individualCustomerService.delete(id);
 	}
 }
