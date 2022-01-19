@@ -17,4 +17,5 @@ public class UpdateIndividualCustomerRequest {
 	private LocalDate birthDate;
 	private String email;
 	private String password;
+	private String nationalityId;
 }

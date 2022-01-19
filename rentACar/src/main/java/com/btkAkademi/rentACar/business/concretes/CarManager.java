@@ -26,6 +26,8 @@ import com.btkAkademi.rentACar.core.utilities.results.SuccessResult;
 import com.btkAkademi.rentACar.dataAccess.abstracts.CarDao;
 import com.btkAkademi.rentACar.entities.concretes.Car;
 
+import lombok.Data;
+
 @Service
 public class CarManager implements CarService{
 
@@ -41,7 +43,7 @@ public class CarManager implements CarService{
 	@Override
 	public DataResult<List<CarListDto>> getAll(int pageNo,int pageSize) {
 		
-		Pageable pageable=PageRequest.of(pageNo -1, pageSize);
+		Pageable pageable=PageRequest.of(pageNo-1, pageSize);
 		
 		List<Car> carList = this.carDao.findAll(pageable).getContent();
 		List<CarListDto> response = carList.stream()
@@ -52,18 +54,26 @@ public class CarManager implements CarService{
 	}
 	
 	@Override
-	public DataResult<CarListDto> findByCarId(int id) {
+	public DataResult<CarListDto> findById(int id) {
 		
-		if(carDao.existsById(id)) {
-			return new ErrorDataResult<CarListDto>();
+		if(!this.carDao.existsById(id)) {
+			return new ErrorDataResult<CarListDto>(Messages.carIdNotFound);
 		}
-		CarListDto carList= modelMapperService.forDto().map(carDao.findById(id).get(), CarListDto.class);
-		return new SuccessDataResult<CarListDto>(carList);
+		
+		Car car = this.carDao.getById(id);
+		CarListDto response = modelMapperService.forDto().map(car, CarListDto.class);
+		return new SuccessDataResult<CarListDto>(response);
 	}
-
+	
 	@Override
 	public Result add(CreateCarRequest createCarRequest) {
 
+		Result result = businessRules.run();
+		
+		if(result != null) {
+			return result;
+		}
+		
 		Car car = modelMapperService.forRequest().map(createCarRequest, Car.class);
 		this.carDao.save(car);
 		return new SuccessResult(Messages.carAdded);
@@ -97,13 +107,20 @@ public class CarManager implements CarService{
 		return new SuccessResult(Messages.carDeleted);
 	}
 	
+	@Override
+	public DataResult<List<Integer>> findAvaliableCarsBySegmentId(int segmentId, int cityId) {
+		if(carDao.findAvailableCarBySegment(segmentId,cityId).size()<1) {
+			return new ErrorDataResult<List<Integer>>();
+		}
+		return new SuccessDataResult<List<Integer>>(this.carDao.findAvailableCarBySegment(segmentId,cityId));
+	}
+	
 	public Result checkIfCarIdExists(int id) {
 		if(!(this.carDao.existsById(id))) {
 			return new ErrorResult(Messages.carNotFound);
 		}
 		return new SuccessResult();
 	}
-
 
 
 

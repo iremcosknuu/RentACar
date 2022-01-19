@@ -15,7 +15,7 @@ public interface RentalService {
 	DataResult<RentalListDto> findById(int id);
 	
 	Result addForCorporateCustomer(CreateRentalRequest createRentalRequest);
-	Result addForIndividualCsutomer(CreateRentalRequest createRentalRequest);
+	Result addForIndividualCustomer(CreateRentalRequest createRentalRequest);
 	Result update(UpdateRentalRequest updateRentalRequest);
 	Result delete(int id);
 	

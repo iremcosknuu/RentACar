@@ -8,6 +8,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateCarRequest {
-	private String name;
+	private int brandId;
+	private int colorId;
 	private double dailyPrice;
+	private int model;
+	private int findexScore;
+	private int kilometer;
+	private String description;
+	private int minAge;
+	private int segmentId;
 }

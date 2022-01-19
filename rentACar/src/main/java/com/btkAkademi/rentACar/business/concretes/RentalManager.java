@@ -17,6 +17,7 @@ import com.btkAkademi.rentACar.business.abstracts.CustomerService;
 import com.btkAkademi.rentACar.business.abstracts.IndividualCustomerService;
 import com.btkAkademi.rentACar.business.abstracts.RentalService;
 import com.btkAkademi.rentACar.business.constants.Messages;
+import com.btkAkademi.rentACar.business.dtos.CarListDto;
 import com.btkAkademi.rentACar.business.dtos.RentalListDto;
 import com.btkAkademi.rentACar.business.requests.rentalRequests.CreateRentalRequest;
 import com.btkAkademi.rentACar.business.requests.rentalRequests.UpdateRentalRequest;
@@ -93,9 +94,9 @@ public class RentalManager implements RentalService {
 				checkIfCustomerExist(createRentalRequest.getCustomerId()),
 				checkIfCarInMaintanance(createRentalRequest.getCarId()),
 				checkIfCityExist(createRentalRequest.getPickUpCityId()),
-				checkIfCityExist(createRentalRequest.getReturnCityId()),
-				checkIfFindexsScoreIsEnough(createRentalRequest.getCarId(), individualCustomerService.findById(createRentalRequest.getCustomerId()).getData().getNationalityId()),
-				chechIfCustomerAgeIsEnough(createRentalRequest.getCarId(), createRentalRequest.getCustomerId())
+				checkIfCityExist(createRentalRequest.getReturnCityId())
+			//	checkIfFindexsScoreIsEnough(createRentalRequest.getCarId(), corporateCustomerService.findById(createRentalRequest.getCustomerId()).getData().getTaxnumber()),
+			//	checkIfCustomerAgeIsEnough(createRentalRequest.getCarId(), createRentalRequest.getCustomerId())
 				);
 
 		if (result != null) {
@@ -108,16 +109,17 @@ public class RentalManager implements RentalService {
 	}
 	
 	@Override
-	public Result addForIndividualCsutomer(CreateRentalRequest createRentalRequest) {
+	public Result addForIndividualCustomer(CreateRentalRequest createRentalRequest) {
+		
 		Result result = businessRules.run(
 				checkIfDatesCorrect(createRentalRequest.getRentDate(), createRentalRequest.getReturnDate()),
 				checkIfKilometerCorrect(createRentalRequest.getRentedKilometer(),createRentalRequest.getReturnedKilometer()),
 				checkIfCustomerExist(createRentalRequest.getCustomerId()),
 				checkIfCarInMaintanance(createRentalRequest.getCarId()),
 				checkIfCityExist(createRentalRequest.getPickUpCityId()),
-				checkIfCityExist(createRentalRequest.getReturnCityId()),
-				checkIfFindexsScoreIsEnough(createRentalRequest.getCarId(), corporateCustomerService.findById(createRentalRequest.getCustomerId()).getData().getTaxnumber()),
-				chechIfCustomerAgeIsEnough(createRentalRequest.getCarId(), createRentalRequest.getCustomerId())
+				checkIfCityExist(createRentalRequest.getReturnCityId())
+				//checkIfFindexsScoreIsEnough(createRentalRequest.getCarId(), individualCustomerService.findById(createRentalRequest.getCustomerId()).getData().getNationalityId()),
+				//checkIfCustomerAgeIsEnough(createRentalRequest.getCarId(), createRentalRequest.getCustomerId())
 				);
 
 		if (result != null) {
@@ -198,7 +200,7 @@ public class RentalManager implements RentalService {
 	}
 	private Result checkIfCityExist(int cityId){
 		if(!this.cityService.findById(cityId).isSuccess()) {
-			return new ErrorResult(Messages.cityIdExist);
+			return new ErrorResult();
 		}
 		return new SuccessResult();
 	}	
@@ -210,20 +212,20 @@ public class RentalManager implements RentalService {
 		return new SuccessResult();
 	}
 	
-	private Result checkIfFindexsScoreIsEnough(int carId,String customerId){
+	/*private Result checkIfFindexsScoreIsEnough(int carId,String customerId){
 		
 		int customerFindexScore =  this.findexAdaperService.checkIfKkbLimitIndividualCustomer(customerId);
-		int carFindexScore = this.carService.findByCarId(carId).getData().getFindexScore();
+		int carFindexScore = this.carService.findById(carId).getData().getFindexScore();
 		
 		if( customerFindexScore < carFindexScore) {
 			return new ErrorResult(Messages.findexScoreIsNotEnough);
 		}
 		return new SuccessResult();
-	}
-	
-	private Result chechIfCustomerAgeIsEnough(int carId, int customerId) {
+	}*/
+	/*
+	private Result checkIfCustomerAgeIsEnough(int carId, int customerId) {
 		int age = Period.between(individualCustomerService.findById(customerId).getData().getBirthDate(), LocalDate.now()).getYears();
-		int minAge = this.carService.findByCarId(carId).getData().getMinAge();
+		int minAge = this.carService.findById(carId).getData().getMinAge();
 		
 		if(age<minAge) {
 			return new ErrorResult(Messages.customerAgeNotEnough);
@@ -231,6 +233,13 @@ public class RentalManager implements RentalService {
 		
 		return new SuccessResult();
 	}
-
+	*/
+	
+	private DataResult<CarListDto> findAvailableCar(int segmentId,int cityId){
+		if(carService.findAvaliableCarsBySegmentId(segmentId, cityId).isSuccess()) {
+			CarListDto car = carService.findById(carService.findAvaliableCarsBySegmentId(segmentId, cityId).getData().get(0)).getData();
+			return new SuccessDataResult<CarListDto>(car);
+		}else return new ErrorDataResult<CarListDto>();
+	}
 
 }

@@ -75,7 +75,6 @@ public class IndividualCustomerManager implements IndividualCustomerService {
 	@Override
 	public Result update(UpdateIndividualCustomerRequest updateIndividualCustomerRequest) {
 		Result result=businessRules.run(
-				checkIfEmailExists(updateIndividualCustomerRequest.getEmail()),
 				checkIfIndividualCustomerIdExists(updateIndividualCustomerRequest.getId()));
 		
 		if(result!=null) {
@@ -100,7 +99,7 @@ public class IndividualCustomerManager implements IndividualCustomerService {
 		}
 		
 		this.individualCustomerDao.deleteById(id);
-		return null;
+		return new SuccessResult(Messages.individualCustomerDeleted);
 	}
 
 	
@@ -123,7 +122,7 @@ public class IndividualCustomerManager implements IndividualCustomerService {
 	}
 	
 	public Result checkIfIndividualCustomerIdExists(int id) {
-		if(this.individualCustomerDao.existsById(id)) {
+		if(!this.individualCustomerDao.existsById(id)) {
 			return new ErrorResult(Messages.individualCustomerIdNotExists);
 		}
 		return new SuccessResult();

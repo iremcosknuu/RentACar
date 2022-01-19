@@ -75,7 +75,8 @@ public class PaymentManager implements PaymentService{
 	@Override
 	public Result add(CreatePaymentRequest createPaymentRequest) {
 		
-		Payment payment= modelMapperService.forRequest().map(createPaymentRequest, Payment.class);       
+		Payment payment= modelMapperService.forRequest().map(createPaymentRequest, Payment.class); 
+		
         int rentalId = createPaymentRequest.getRentalId();
         
         RentalListDto rentalList = rentalService.findById(rentalId).getData();
@@ -133,7 +134,7 @@ public class PaymentManager implements PaymentService{
 			days=1;
 		}
 		
-		totalPrice += days * carService.findByCarId(rentalList.getCarId()).getData().getDailyPrice();
+		totalPrice += days * carService.findById(rentalList.getCarId()).getData().getDailyPrice();
 		
 		if(rentalList.getPromotionId() != 0) {
 			PromotionListDto promotionList = this.promotionService.findById(rentalList.getPromotionId()).getData();
@@ -142,6 +143,7 @@ public class PaymentManager implements PaymentService{
 				discountRate = promotionList.getDiscountRate();
 				totalPrice = totalPrice - (totalPrice*discountRate);
 			}
+			
 		}
 	    
 		List<AdditionalServiceListDto> services = additionalServiceService.findAllByRentalId(rentalList.getId()).getData();

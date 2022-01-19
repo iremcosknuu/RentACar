@@ -50,9 +50,7 @@ public class CarDamageManager implements CarDamageService{
 		System.out.println(createCarDamageRequest.toString());
 		CarDamage carDamage = modelMapperService.forRequest()
 				.map(createCarDamageRequest,CarDamage.class);
-		
-		System.out.println(carDamage.toString());
-		
+			
 	
 		this.carDamageDao.save(carDamage);		
 		return new SuccessResult(Messages.carDamageAdded);

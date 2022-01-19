@@ -110,7 +110,7 @@ public class CarMaintenanceManager implements CarMaintenanceService {
 			return new ErrorResult(Messages.carRented);
 		}
 		return new SuccessResult();
-	}
+	}	
 	
 	public Result checkIfCarMaintenanceIdExists(int id) {
 		if(!this.carMaintenanceDao.existsById(id)) {

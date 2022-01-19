@@ -3,6 +3,8 @@ package com.btkAkademi.rentACar.business.constants;
 import java.util.List;
 
 import com.btkAkademi.rentACar.business.dtos.AdditionalServiceListDto;
+import com.btkAkademi.rentACar.business.dtos.CarListDto;
+import com.btkAkademi.rentACar.business.dtos.SegmentListDto;
 import com.btkAkademi.rentACar.entities.concretes.City;
 import com.btkAkademi.rentACar.entities.concretes.Rental;
 
@@ -26,6 +28,7 @@ public class Messages {
 	public static final String getByIdCar="getById.car";
 	public static final String carNotFound="car.carNotFund";
 	public static final String carDeleted="car.deleted";
+	public static final String carIdNotFound="carId.not.found";
 	
 	public static final String individualCustomerAdded="individualcustomer.added";
 	public static final String individualCustomerAgeNotInLimit="individualcustomer.age.no.limit";
@@ -93,7 +96,11 @@ public class Messages {
 	
 	public static final String promotionAdded="promotion.added";
 	public static final String promorionCodeAlreadyExists="promotionCode.alread.exists";
-
-
+	
+	public static final String segmentIdNotFound="carSegment.id.not.found";
+	public static final String segmentAdded="carSegment.added";
+	public static final String segmentNameIAlreadyExists="segmentName.already.exists";
+	public static final String segmentUpdated = "segment.updated";
+	public static final String segmentDeleted = "segment.deleted";
 
 }

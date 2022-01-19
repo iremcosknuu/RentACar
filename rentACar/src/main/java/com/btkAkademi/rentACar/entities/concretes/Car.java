@@ -56,4 +56,9 @@ public class Car {
 	
 	@OneToMany(mappedBy="car")
 	private List<CarDamage> carDamages;
+	
+	@ManyToOne()
+	@JoinColumn(name="segment_id")
+	private Segment segment;
+
 }
