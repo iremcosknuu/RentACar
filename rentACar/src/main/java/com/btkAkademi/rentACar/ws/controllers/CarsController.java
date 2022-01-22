@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,6 +41,16 @@ public class CarsController {
 	@GetMapping("findById/{id}")
 	public DataResult<CarListDto> findById(@PathVariable int id){
 		return this.carService.findById(id);
+	}
+	
+	@GetMapping("findByColorId/{colorId}")
+	public DataResult<List<CarListDto>> findByColorId(@PathVariable int colorId){
+		return this.carService.findByColorId(colorId);
+	}
+	
+	@GetMapping("findByBrandId/{brandId}")
+	public DataResult<List<CarListDto>> findByBrandId(@PathVariable int brandId){
+		return this.carService.findAllByBrandId(brandId);
 	}
 	
 	@PostMapping("add")

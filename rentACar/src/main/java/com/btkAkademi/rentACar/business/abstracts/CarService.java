@@ -11,6 +11,8 @@ import com.btkAkademi.rentACar.core.utilities.results.Result;
 public interface CarService {
 	DataResult<List<CarListDto>> getAll(int pageNo,int pageSize);
 	DataResult<CarListDto> findById(int id);
+	DataResult<List<CarListDto>> findByColorId(int colorid);
+	DataResult<List<CarListDto>> findAllByBrandId(int brandId);
 	DataResult<List<Integer>>  findAvaliableCarsBySegmentId(int segmentId, int city);
 	
 	Result add(CreateCarRequest createCarRequest);

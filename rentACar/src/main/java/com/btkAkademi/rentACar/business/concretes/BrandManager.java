@@ -48,8 +48,9 @@ public class BrandManager implements BrandService{
 	@Override
 	public Result add(CreateBrandRequest createBrandRequest) {
 		Result result=businessRules.run(
-				checkIfBrandNameExists(createBrandRequest.getName()),
-				checkIfBrandLimitExceeded(3));
+				checkIfBrandNameExists(createBrandRequest.getName())
+				//checkIfBrandLimitExceeded(3)
+				);
 		
 		if(result!=null) {
 			return result;
@@ -97,13 +98,14 @@ public class BrandManager implements BrandService{
 		}
 		return new SuccessResult();
 	}
-	
+	/*
 	private Result checkIfBrandLimitExceeded(int limit) {
 		if (this.brandDao.count()>=limit) {
 			return  new ErrorResult(Messages.brandLimitExceeded);
 		}
 		return new SuccessResult();
 	}
+	*/
 	
 	public Result checkIfBrandIdExists(int id) {
 		if(!(this.brandDao.existsById(id))) {

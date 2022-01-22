@@ -29,6 +29,7 @@ public class Messages {
 	public static final String carNotFound="car.carNotFund";
 	public static final String carDeleted="car.deleted";
 	public static final String carIdNotFound="carId.not.found";
+	public static final String colorIdNotFound = "colorId.not.found";
 	
 	public static final String individualCustomerAdded="individualcustomer.added";
 	public static final String individualCustomerAgeNotInLimit="individualcustomer.age.no.limit";
@@ -102,5 +103,6 @@ public class Messages {
 	public static final String segmentNameIAlreadyExists="segmentName.already.exists";
 	public static final String segmentUpdated = "segment.updated";
 	public static final String segmentDeleted = "segment.deleted";
+
 
 }

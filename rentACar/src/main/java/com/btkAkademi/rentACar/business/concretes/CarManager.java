@@ -66,6 +66,25 @@ public class CarManager implements CarService{
 	}
 	
 	@Override
+	public DataResult<List<CarListDto>> findByColorId(int colorId) {
+		List<Car> carList = this.carDao.findAllByColorId(colorId);
+		List<CarListDto> response = carList.stream()
+				.map(car -> modelMapperService.forDto()
+				.map(car, CarListDto.class))
+				.collect(Collectors.toList());
+		return new SuccessDataResult<List<CarListDto>>(response);
+	}
+	
+	@Override
+	public DataResult<List<CarListDto>> findAllByBrandId(int brandId) {
+
+		List<Car> carList = this.carDao.findAllByBrandId(brandId);
+		List<CarListDto> response = carList.stream().map(car -> modelMapperService.forDto().map(car, CarListDto.class))
+				.collect(Collectors.toList());
+		return new SuccessDataResult<List<CarListDto>>(response);
+	}
+	
+	@Override
 	public Result add(CreateCarRequest createCarRequest) {
 
 		Result result = businessRules.run();
@@ -121,7 +140,4 @@ public class CarManager implements CarService{
 		}
 		return new SuccessResult();
 	}
-
-
-
 }
