@@ -40,6 +40,8 @@ public class Car {
 	private int kilometer;
 	@Column(name="minAge")
 	private int minAge;
+	@Column(name="imageUrl")
+	private String imageUrl;
 	
 	@ManyToOne
 	@JoinColumn(name = "brand_id")
@@ -61,4 +63,7 @@ public class Car {
 	@JoinColumn(name="segment_id")
 	private Segment segment;
 
+	@ManyToOne()
+	@JoinColumn(name="fuelType_id")
+	private FuelType fuelType;
 }

@@ -1,9 +1,5 @@
 package com.btkAkademi.rentACar.core.utilities.externalServices.kKB;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 public class kKB {
 
 	public int CorporteCustomerFindexScore(String NationalityId) {

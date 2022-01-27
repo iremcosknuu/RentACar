@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CarListDto {
 	private int id;
+	private String name;
 	private double dailyPrice;
 	private int modelYear;
 	private String description;
@@ -17,5 +18,7 @@ public class CarListDto {
 	private String brandName;
 	private String colorName;
 	private int minAge;
-	private int segmentId;
+	private String segmentName;
+	private String fuelTypeName;
+	private String imageUrl;
 }

@@ -8,9 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UpdateAddionalServiceRequest {
-	private int id;
-	private String name;
-	private double price;
 	private int rentalId;
+	private int additionalServiceItemId;
 
 }

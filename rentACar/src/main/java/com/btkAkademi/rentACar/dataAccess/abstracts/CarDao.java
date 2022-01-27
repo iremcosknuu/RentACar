@@ -13,6 +13,7 @@ public interface CarDao extends JpaRepository<Car,Integer> {
 	List<Car> findAllBySegmentId(int segmentId);
 	List<Car> findAllByColorId(int colorId);
 	List<Car> findAllByBrandId(int brandId);
+	List<Car> findAllByFuelTypeId(int flueTypeId);
 	
 	@Query(value = "select cars.id as rental_id,\r\n" + "	rentals.return_date\r\n" + "from cars\r\n"
 			+ "left join car_maintenances on cars.id = car_maintenances.car_id and car_maintenances.maintenance_end is null\r\n"

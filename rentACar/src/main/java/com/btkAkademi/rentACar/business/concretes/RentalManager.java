@@ -87,7 +87,7 @@ public class RentalManager implements RentalService {
 	}
 	
 	@Override
-	public Result addForCorporateCustomer(CreateRentalRequest createRentalRequest) {
+	public DataResult<RentalListDto> addForCorporateCustomer(CreateRentalRequest createRentalRequest) {
 		Result result = businessRules.run(
 				checkIfDatesCorrect(createRentalRequest.getRentDate(), createRentalRequest.getReturnDate()),
 				checkIfKilometerCorrect(createRentalRequest.getRentedKilometer(),createRentalRequest.getReturnedKilometer()),
@@ -100,16 +100,17 @@ public class RentalManager implements RentalService {
 				);
 
 		if (result != null) {
-			return result;
+			return new ErrorDataResult<RentalListDto>(result.getMessage());
 		}
 		
 		Rental rental= modelMapperService.forRequest().map(createRentalRequest, Rental.class);
 		this.rentalDao.save(rental);
-		return new SuccessResult(Messages.rentalAdded);
+		RentalListDto rentalListDto = modelMapperService.forDto().map(rental, RentalListDto.class);
+		return new SuccessDataResult<RentalListDto>(rentalListDto,Messages.rentalAdded);
 	}
 	
 	@Override
-	public Result addForIndividualCustomer(CreateRentalRequest createRentalRequest) {
+	public DataResult<RentalListDto> addForIndividualCustomer(CreateRentalRequest createRentalRequest) {
 		
 		Result result = businessRules.run(
 				checkIfDatesCorrect(createRentalRequest.getRentDate(), createRentalRequest.getReturnDate()),
@@ -123,12 +124,14 @@ public class RentalManager implements RentalService {
 				);
 
 		if (result != null) {
-			return result;
+			return new ErrorDataResult<RentalListDto>(result.getMessage());
 		}
 		
 		Rental rental= modelMapperService.forRequest().map(createRentalRequest, Rental.class);
 		this.rentalDao.save(rental);
-		return new SuccessResult(Messages.rentalAdded);
+		
+		RentalListDto rentalListDto = modelMapperService.forDto().map(rental, RentalListDto.class);
+		return new SuccessDataResult<RentalListDto>(rentalListDto,Messages.rentalAdded);
 	}
 	
 	@Override

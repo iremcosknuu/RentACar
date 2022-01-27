@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import com.btkAkademi.rentACar.business.abstracts.AdditionalServiceService;
@@ -25,102 +26,91 @@ import com.btkAkademi.rentACar.entities.concretes.AdditionalService;
 
 @Service
 public class AdditionalServiceManager implements AdditionalServiceService{
-
+	
 	private AdditionalServiceDao additionalServiceDao;
 	private ModelMapperService modelMapperService;
 	private RentalService rentalService;
-	
+
 	@Autowired
 	public AdditionalServiceManager(AdditionalServiceDao additionalServiceDao, ModelMapperService modelMapperService,
-			RentalService rentalService) {
+			@Lazy RentalService rentalService) {
 		super();
 		this.additionalServiceDao = additionalServiceDao;
 		this.modelMapperService = modelMapperService;
 		this.rentalService = rentalService;
 	}
-	
-	@Override
-	public DataResult<List<AdditionalServiceListDto>> getAll() {
-		List<AdditionalService> additionalServiceList = this.additionalServiceDao.findAll();
-		List<AdditionalServiceListDto> response = additionalServiceList.stream()
-				.map(additionalService -> modelMapperService.forDto()
-				.map(additionalService, AdditionalServiceListDto.class))
-				.collect(Collectors.toList());
-		return new SuccessDataResult<List<AdditionalServiceListDto>>(response);
-	}
 
 	@Override
 	public DataResult<List<AdditionalServiceListDto>> findAllByRentalId(int rentalId) {
-		if(!this.additionalServiceDao.existsById(rentalId)) {
-			return new ErrorDataResult<List<AdditionalServiceListDto>>(Messages.additionalServiceInRentalIdNotFound);
-		}
-		
-		List<AdditionalService> additionalServiceList= this.additionalServiceDao.findAllByRentalId(rentalId);
-		List<AdditionalServiceListDto> response = additionalServiceList.stream()
-				.map(additionalService -> modelMapperService.forDto()
-				.map(additionalService, AdditionalServiceListDto.class))
+		List<AdditionalService> additionalServiceList = this.additionalServiceDao.findAllByRentalId(rentalId);
+		List<AdditionalServiceListDto> response = additionalServiceList.stream().map(
+				additionalService -> modelMapperService.forDto().map(additionalService, AdditionalServiceListDto.class))
 				.collect(Collectors.toList());
-		
+
 		return new SuccessDataResult<List<AdditionalServiceListDto>>(response);
 	}
 
 	@Override
 	public Result add(CreateAdditionalServiceRequest createAdditionalServiceRequest) {
-		Result result=businessRules.run(
-				checkIfRentalIsExists(createAdditionalServiceRequest.getRentalId()));
-		if(result!= null) {
+		Result result = businessRules.run(checkIfRentalExists(createAdditionalServiceRequest.getRentalId()));
+		if (result != null) {
 			return result;
 		}
-		
-		AdditionalService additionalService =modelMapperService.forRequest().map(createAdditionalServiceRequest, AdditionalService.class);
+
+		AdditionalService additionalService = this.modelMapperService.forRequest().map(createAdditionalServiceRequest,
+				AdditionalService.class);
+		// avoid error
+		additionalService.setId(0);
 		this.additionalServiceDao.save(additionalService);
 		return new SuccessResult(Messages.additionalServiceAdded);
 	}
-	
+
 	@Override
-	public Result update(UpdateAddionalServiceRequest updateAddionalServiceRequest) {
-		Result result = businessRules.run(
-				checkIfRentalIsExists(updateAddionalServiceRequest.getRentalId()));
-		
-		if (result!=null) {
+	public Result addAll(List<CreateAdditionalServiceRequest> createAdditionalServiceRequests) {
+		Result result = businessRules.run(checkIfRentalExists(createAdditionalServiceRequests.get(0).getRentalId()));
+		if (result != null) {
 			return result;
 		}
-		AdditionalService additionalServiceToUpdate = this.additionalServiceDao.getById(updateAddionalServiceRequest.getId());
-		additionalServiceToUpdate = modelMapperService.forRequest().map(updateAddionalServiceRequest, AdditionalService.class);
 
-		this.additionalServiceDao.save(additionalServiceToUpdate);
+		List<AdditionalService> response = createAdditionalServiceRequests.stream()
+				.map(service -> modelMapperService.forRequest().map(service, AdditionalService.class))
+				.collect(Collectors.toList());
+		for (AdditionalService service : response) {
+			service.setId(0);
+		}
+		this.additionalServiceDao.saveAll(response);
+		return new SuccessResult(Messages.additionalServiceAdded);
+	}
+
+	@Override
+	public Result update(UpdateAddionalServiceRequest updateAdditionalServiceRequest) {
+		Result result = businessRules.run(checkIfRentalExists(updateAdditionalServiceRequest.getRentalId()));
+
+		if (result != null) {
+			return result;
+		}
+		
+		AdditionalService additionalService = modelMapperService.forRequest().map(updateAdditionalServiceRequest,
+				AdditionalService.class);
+		additionalServiceDao.save(additionalService);
 		return new SuccessResult(Messages.additionalServiceUpdated);
 	}
 
 	@Override
 	public Result delete(int id) {
-		Result result = businessRules.run(
-				checkIfAdditionalServiceIdExist(id));
-		
-		
-		if(result!= null){
-			return result;
-		}
-		
-		additionalServiceDao.deleteById(id);
-		return new SuccessResult(Messages.additionalServiceDeleted);
+		if (additionalServiceDao.existsById(id)) {
+			additionalServiceDao.deleteById(id);
+			return new SuccessResult(Messages.additionalServiceDeleted);
+		} else
+			return new ErrorResult(Messages.additionalServiceNotFound);
+	}
+
+	private Result checkIfRentalExists(int rentalId) {
+		if (!rentalService.findById(rentalId).isSuccess()) {
+			return new ErrorResult(Messages.rentalIdNotExists);
+		} else
+			return new SuccessResult();
 	}
 	
-	private Result checkIfRentalIsExists(int rentalId) {
-		if(!rentalService.findById(rentalId).isSuccess()) {
-			return new ErrorResult(Messages.rentalIsNotExists);
-		}
-		return new SuccessResult();
-	}
-	
-	private Result checkIfAdditionalServiceIdExist(int id) {
-		if (!additionalServiceDao.existsById(id)) {
-			return new ErrorResult(Messages.additionalServiceNotExist);
-		}
-
-		return new SuccessResult();
-
-	}
-
 
 }

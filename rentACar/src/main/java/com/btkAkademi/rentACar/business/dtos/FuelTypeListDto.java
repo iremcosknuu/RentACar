@@ -7,8 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SegmentListDto {
-
+public class FuelTypeListDto {
+	
 	private int id;
 	private String name;
+
 }

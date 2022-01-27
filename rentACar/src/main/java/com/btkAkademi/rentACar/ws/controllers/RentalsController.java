@@ -35,18 +35,24 @@ public class RentalsController {
 	}
 	
 	@GetMapping("getall")
-	public DataResult<List<RentalListDto>> getAll(@RequestParam int pageNo,@RequestParam int pageSize){
+	public DataResult<List<RentalListDto>> getAll(@RequestParam(defaultValue ="1") int pageNo,@RequestParam(defaultValue ="10") int pageSize){
 		return rentalService.getAll(pageNo,pageSize);
 	}
 	
+	@GetMapping("findById/{id}")
+	public DataResult<RentalListDto> findById(@PathVariable int id){
+		return this.rentalService.findById(id);
+	}
+	
+	
 	@PostMapping("addindividualcustomer")
-	public Result addindividualcustomer(@RequestBody @Valid CreateRentalRequest createRentalRequest) {
+	public DataResult<RentalListDto> addindividualcustomer(@RequestBody @Valid CreateRentalRequest createRentalRequest) {
 		return rentalService.addForIndividualCustomer(createRentalRequest);
 		
 	}
 	
 	@PostMapping("addcorporatecustomer")
-	public Result addcorporatecustomer(@RequestBody @Valid CreateRentalRequest createRentalRequest) {
+	public DataResult<RentalListDto> addcorporatecustomer(@RequestBody @Valid CreateRentalRequest createRentalRequest) {
 		return rentalService.addForCorporateCustomer(createRentalRequest);
 		
 	}

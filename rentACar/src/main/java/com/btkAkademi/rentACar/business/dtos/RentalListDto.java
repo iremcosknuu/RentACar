@@ -13,9 +13,16 @@ public class RentalListDto {
 	private int id ;
 	private LocalDate rentDate;
 	private LocalDate returnDate;
-	private Integer rentedKilometer;
-	private Integer returnedKilometer;
+	private int rentedKilometer;
+	private int returnedKilometer;
+	private int pickUpCityId;
+	private String pickUpCityName;
+	private int returnCityId;
+	private String returnCityName;
 	private int customerId;
 	private int carId;
+	private String brandName;
+	private double dailyPrice;
+	private String carImageUrl;
 	private int promotionId;
 }

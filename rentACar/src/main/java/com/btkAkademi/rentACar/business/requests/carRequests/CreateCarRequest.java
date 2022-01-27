@@ -10,11 +10,14 @@ import lombok.NoArgsConstructor;
 public class CreateCarRequest {
 	private int brandId;
 	private int colorId;
+	private String name;
 	private double dailyPrice;
-	private int model;
+	private int modelYear;
 	private int findexScore;
 	private int kilometer;
 	private String description;
 	private int minAge;
 	private int segmentId;
+	private String imageUrl;
+	private int fuelTypeId;
 }

@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SegmentListDto {
-
+public class AdditionalServiceItemListDto {
 	private int id;
 	private String name;
+	private double price;
 }

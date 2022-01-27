@@ -85,6 +85,22 @@ public class CarManager implements CarService{
 	}
 	
 	@Override
+	public DataResult<List<Integer>> findAvaliableCarsBySegmentId(int segmentId, int cityId) {
+		if(carDao.findAvailableCarBySegment(segmentId,cityId).size()<1) {
+			return new ErrorDataResult<List<Integer>>();
+		}
+		return new SuccessDataResult<List<Integer>>(this.carDao.findAvailableCarBySegment(segmentId,cityId));
+	}
+	
+	@Override
+	public DataResult<List<CarListDto>> findAllByFuelTypeId(int fuelTypeId) {
+		List<Car> carList = this.carDao.findAllByFuelTypeId(fuelTypeId);
+		List<CarListDto> response = carList.stream().map(car -> modelMapperService.forDto().map(car, CarListDto.class))
+				.collect(Collectors.toList());
+		return new SuccessDataResult<List<CarListDto>>(response);
+	}
+	
+	@Override
 	public Result add(CreateCarRequest createCarRequest) {
 
 		Result result = businessRules.run();
@@ -126,18 +142,12 @@ public class CarManager implements CarService{
 		return new SuccessResult(Messages.carDeleted);
 	}
 	
-	@Override
-	public DataResult<List<Integer>> findAvaliableCarsBySegmentId(int segmentId, int cityId) {
-		if(carDao.findAvailableCarBySegment(segmentId,cityId).size()<1) {
-			return new ErrorDataResult<List<Integer>>();
-		}
-		return new SuccessDataResult<List<Integer>>(this.carDao.findAvailableCarBySegment(segmentId,cityId));
-	}
-	
 	public Result checkIfCarIdExists(int id) {
 		if(!(this.carDao.existsById(id))) {
 			return new ErrorResult(Messages.carNotFound);
 		}
 		return new SuccessResult();
 	}
+
+
 }

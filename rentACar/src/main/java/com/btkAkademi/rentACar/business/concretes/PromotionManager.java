@@ -3,6 +3,7 @@ package com.btkAkademi.rentACar.business.concretes;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.btkAkademi.rentACar.business.abstracts.PromotionService;
@@ -25,6 +26,7 @@ public class PromotionManager implements PromotionService {
 	private PromotionDao promotionDao;
 	private ModelMapperService modelMapperService;
 	
+	@Autowired
 	public PromotionManager(PromotionDao promotionDao, ModelMapperService modelMapperService) {
 		super();
 		this.promotionDao = promotionDao;
@@ -36,7 +38,7 @@ public class PromotionManager implements PromotionService {
 		List<Promotion> promotionList = this.promotionDao.findAll();
 		List<PromotionListDto> response = promotionList.stream()
 				.map(promotion -> modelMapperService.forDto()
-				.map(promotionList, PromotionListDto.class))
+				.map(promotion, PromotionListDto.class))
 				.collect(Collectors.toList());
 		return new SuccessDataResult<List<PromotionListDto>>(response);
 	}

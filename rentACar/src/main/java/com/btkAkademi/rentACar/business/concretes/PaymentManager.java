@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.btkAkademi.rentACar.business.abstracts.AdditionalServiceItemService;
 import com.btkAkademi.rentACar.business.abstracts.AdditionalServiceService;
 import com.btkAkademi.rentACar.business.abstracts.CarService;
 import com.btkAkademi.rentACar.business.abstracts.PaymentService;
@@ -28,10 +29,7 @@ import com.btkAkademi.rentACar.core.utilities.results.Result;
 import com.btkAkademi.rentACar.core.utilities.results.SuccessDataResult;
 import com.btkAkademi.rentACar.core.utilities.results.SuccessResult;
 import com.btkAkademi.rentACar.dataAccess.abstracts.PaymentDao;
-import com.btkAkademi.rentACar.entities.concretes.AdditionalService;
 import com.btkAkademi.rentACar.entities.concretes.Payment;
-import com.btkAkademi.rentACar.entities.concretes.Promotion;
-import com.btkAkademi.rentACar.entities.concretes.Rental;
 
 @Service
 public class PaymentManager implements PaymentService{
@@ -40,6 +38,7 @@ public class PaymentManager implements PaymentService{
     private ModelMapperService modelMapperService;
     private RentalService rentalService;
     private AdditionalServiceService additionalServiceService;
+    private AdditionalServiceItemService additionalServiceItemService;
     private BankAdapterService bankAdapterService;
     private PromotionService promotionService;
     private CarService carService;
@@ -51,15 +50,18 @@ public class PaymentManager implements PaymentService{
 			, AdditionalServiceService additionalServiceService
 			, BankAdapterService bankAdapterService
 			, PromotionService promotionService
-			, CarService carService) {
+			, CarService carService
+			, AdditionalServiceItemService additionalServiceItemService
+			) {
 		super();
 		this.modelMapperService = modelMapperService;
 		this.paymentDao = paymentDao;
 		this.rentalService = rentalService;
-		this.additionalServiceService=additionalServiceService;
+		this.additionalServiceService = additionalServiceService;
 		this.bankAdapterService=bankAdapterService;
 		this.promotionService = promotionService;
 		this.carService = carService;
+		this.additionalServiceItemService = additionalServiceItemService;
 	}
 
 	@Override
@@ -77,12 +79,10 @@ public class PaymentManager implements PaymentService{
 		
 		Payment payment= modelMapperService.forRequest().map(createPaymentRequest, Payment.class); 
 		
-        int rentalId = createPaymentRequest.getRentalId();
+        int rentalId = createPaymentRequest.getRentalId();       
+        RentalListDto rentalList = rentalService.findById(rentalId).getData(); 
         
-        RentalListDto rentalList = rentalService.findById(rentalId).getData();
-        
-		double totalPrice = calculatorTotalPrice(rentalList);
-		
+		double totalPrice = calculatorTotalPrice(rentalList);		
 		payment.setTotalPrice(totalPrice);
 		
         Result result = businessRules.run(
@@ -148,7 +148,9 @@ public class PaymentManager implements PaymentService{
 	    
 		List<AdditionalServiceListDto> services = additionalServiceService.findAllByRentalId(rentalList.getId()).getData();
 		for (AdditionalServiceListDto additionalService : services) {
-			totalPrice += additionalService.getPrice();
+			double additionalServiceItemPrice = additionalServiceItemService
+					.findById(additionalService.getAdditionalServiceItemId()).getData().getPrice();
+			totalPrice += additionalServiceItemPrice;
 		}
 		
 		return totalPrice;

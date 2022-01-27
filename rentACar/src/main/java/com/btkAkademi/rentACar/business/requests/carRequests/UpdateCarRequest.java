@@ -19,4 +19,6 @@ public class UpdateCarRequest {
 	private String description;
 	private int minAge;
 	private int segmentId;
+	private String imageUrl;
+	private int fuelTypeId;
 }

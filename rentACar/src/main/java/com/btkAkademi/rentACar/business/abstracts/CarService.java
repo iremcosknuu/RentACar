@@ -14,6 +14,8 @@ public interface CarService {
 	DataResult<List<CarListDto>> findByColorId(int colorid);
 	DataResult<List<CarListDto>> findAllByBrandId(int brandId);
 	DataResult<List<Integer>>  findAvaliableCarsBySegmentId(int segmentId, int city);
+	DataResult<List<CarListDto>> findAllByFuelTypeId(int segmentId);
+
 	
 	Result add(CreateCarRequest createCarRequest);
 	Result update(UpdateCarRequest updateCarRequest);

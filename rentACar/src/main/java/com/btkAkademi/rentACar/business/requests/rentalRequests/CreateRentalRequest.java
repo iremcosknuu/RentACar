@@ -17,4 +17,5 @@ public class CreateRentalRequest {
 	private int returnCityId;
 	private int customerId;	
 	private int carId;
+	private int promotionId;
 }

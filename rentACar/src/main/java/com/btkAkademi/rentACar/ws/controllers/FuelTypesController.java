@@ -14,41 +14,42 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.btkAkademi.rentACar.business.abstracts.BrandService;
-import com.btkAkademi.rentACar.business.dtos.BrandListDto;
-import com.btkAkademi.rentACar.business.requests.brandRequests.CreateBrandRequest;
-import com.btkAkademi.rentACar.business.requests.brandRequests.UpdateBrandRequest;
+import com.btkAkademi.rentACar.business.abstracts.FuelTypeService;
+import com.btkAkademi.rentACar.business.dtos.FuelTypeListDto;
+import com.btkAkademi.rentACar.business.requests.fuelTypeRequests.CreateFuelTypeRequest;
+import com.btkAkademi.rentACar.business.requests.fuelTypeRequests.UpdateFuelTypeRequest;
 import com.btkAkademi.rentACar.core.utilities.results.DataResult;
 import com.btkAkademi.rentACar.core.utilities.results.Result;
 
 @RestController
-@RequestMapping("/api/brands")
+@RequestMapping("/api/fueltypes")
 @CrossOrigin
-public class BrandsController {
-	private BrandService brandService;
+public class FuelTypesController {
+	
+	private FuelTypeService fuelTypeService;
 
-	public BrandsController(BrandService brandService) {
-		this.brandService = brandService;
+	public FuelTypesController(FuelTypeService fuelTypeService) {
+		super();
+		this.fuelTypeService = fuelTypeService;
 	}
 	
 	@GetMapping("getall")
-	public DataResult<List<BrandListDto>>getAll(){
-		return this.brandService.getAll();
+	public DataResult<List<FuelTypeListDto>> getAll(){
+		return this.fuelTypeService.getAll();
 	}
-	
+
 	@PostMapping("add")
-	public Result add(@RequestBody @Valid CreateBrandRequest createBrandRequest) {
-		return this.brandService.add(createBrandRequest);
+	public Result add(CreateFuelTypeRequest createFuelTypeRequest) {
+		return this.fuelTypeService.add(createFuelTypeRequest);
 	}
 	
 	@PutMapping("update")
-	public Result update(@RequestBody @Valid UpdateBrandRequest updateBrandRequest) {
-		return this.brandService.update(updateBrandRequest);
+	public Result update(@RequestBody @Valid UpdateFuelTypeRequest updateFuelTypeRequest) {
+		return this.fuelTypeService.update(updateFuelTypeRequest);
 	}
 	
 	@DeleteMapping("delete/{id}")
 	public Result delete(@PathVariable int id) {
-		return this.brandService.delete(id);
+		return this.fuelTypeService.delete(id);
 	}
-	
 }

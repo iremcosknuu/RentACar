@@ -1,12 +1,5 @@
 package com.btkAkademi.rentACar.business.constants;
 
-import java.util.List;
-
-import com.btkAkademi.rentACar.business.dtos.AdditionalServiceListDto;
-import com.btkAkademi.rentACar.business.dtos.CarListDto;
-import com.btkAkademi.rentACar.business.dtos.SegmentListDto;
-import com.btkAkademi.rentACar.entities.concretes.City;
-import com.btkAkademi.rentACar.entities.concretes.Rental;
 
 public class Messages {
 	public static final String invalidBrandName="invalid.brand.name";
@@ -68,6 +61,9 @@ public class Messages {
 	public static final String additionalServiceUpdated="additionalService.updated";
 	public static final String additionalServiceDeleted="additionalService.deleted";
 	public static final String additionalServiceNotExist="additionalService.not.exist";
+	public static final String additionalServiceList = "additionalService.listed";
+	public static final String additionalServiceNotFound = "additionalService.not.found";
+	public static final String additionalServiceById = "additionalService.by.id";
 	
 	public static final String cityAdded="city.added";
 	public static final String cityNotFound="city.not.found";
@@ -103,6 +99,14 @@ public class Messages {
 	public static final String segmentNameIAlreadyExists="segmentName.already.exists";
 	public static final String segmentUpdated = "segment.updated";
 	public static final String segmentDeleted = "segment.deleted";
+	
+	public static final String fuelTypeAdded = "fuelType.added";
+	public static final String fuelTypeNotFound = "fuelType.not.found";
+	public static final String fuelTypeUpdated = "fuelType.updated";
+	public static final String fuelTypeDeleted = "fuelType.deleted";
+
+
+
 
 
 }

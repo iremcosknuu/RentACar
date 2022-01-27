@@ -26,7 +26,6 @@ import com.btkAkademi.rentACar.core.utilities.results.Result;
 @RestController
 @RequestMapping("/api/additionalservices")
 public class AdditionalServicesController {
-
 	private AdditionalServiceService additionalServiceService;
 
 	@Autowired
@@ -34,25 +33,31 @@ public class AdditionalServicesController {
 		super();
 		this.additionalServiceService = additionalServiceService;
 	}
-	
-	@GetMapping("getAll")
-	public DataResult<List<AdditionalServiceListDto>> getAll(){
-		return this.additionalServiceService.getAll();
+
+	@GetMapping("findallbyrentalid/{id}")
+	public DataResult<List<AdditionalServiceListDto>> findAllByRentalId(@PathVariable int id) {
+		return additionalServiceService.findAllByRentalId(id);
+
 	}
-	
-	
+
 	@PostMapping("add")
-	public Result add(@RequestBody @Valid CreateAdditionalServiceRequest createAdditionalServiceRequest) {
-		return this.additionalServiceService.add(createAdditionalServiceRequest);
+	public Result add(@RequestBody @Valid CreateAdditionalServiceRequest createAdditionalService) {
+		return this.additionalServiceService.add(createAdditionalService);
 	}
-	
+
+	@PostMapping("addall")
+	public Result addAll(@RequestBody @Valid List<CreateAdditionalServiceRequest> createAdditionalService) {
+		return this.additionalServiceService.addAll(createAdditionalService);
+	}
+
 	@PutMapping("update")
-	public Result update(@RequestBody @Valid UpdateAddionalServiceRequest updateAddionalServiceRequest) {
-		return this.additionalServiceService.update(updateAddionalServiceRequest);
+	public Result update(@RequestBody @Valid UpdateAddionalServiceRequest updateAdditionalServiceRequest) {
+		return this.additionalServiceService.update(updateAdditionalServiceRequest);
 	}
-	
+
 	@DeleteMapping("delete/{id}")
-	public Result deleet(@PathVariable int id) {
+	public Result update(@PathVariable int id) {
 		return this.additionalServiceService.delete(id);
 	}
+
 }

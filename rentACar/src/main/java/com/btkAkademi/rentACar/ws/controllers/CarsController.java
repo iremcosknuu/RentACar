@@ -53,6 +53,11 @@ public class CarsController {
 		return this.carService.findAllByBrandId(brandId);
 	}
 	
+	@GetMapping("findByFuelTypeId/{fuelTypeId}")
+	public DataResult<List<CarListDto>> findAllByFuelTypeId(@PathVariable int fuelTypeId){
+		return this.carService.findAllByFuelTypeId(fuelTypeId);
+	}
+	
 	@PostMapping("add")
 	public Result add(@RequestBody @Valid CreateCarRequest createCarRequest) {
 		return this.carService.add(createCarRequest);
